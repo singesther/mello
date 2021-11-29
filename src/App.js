@@ -1,14 +1,14 @@
-import Sidebar from "./components/sidebar/Sidebar";
-import Topbar from "./components/topbar/Topbar";
-import "./App.css";
-import Home from "./pages/home/Home";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import UserList from "./pages/userList/UserList";
-import User from "./pages/user/User";
-import NewUser from "./pages/newUser/NewUser";
-import ProductList from "./pages/productList/ProductList";
-import Product from "./pages/product/Product";
-import NewProduct from "./pages/newProduct/NewProduct";
+import Sidebar from './components/sidebar/Sidebar';
+import Topbar from './components/topbar/Topbar';
+import './App.css';
+import Home from './pages/home/Home';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import UserList from './pages/userList/UserList';
+import User from './pages/user/User';
+import NewUser from './pages/newUser/NewUser';
+import ProductList from './pages/productList/ProductList';
+import Product from './pages/product/Product';
+import NewProduct from './pages/newProduct/NewProduct';
 
 function App() {
   return (
@@ -23,7 +23,7 @@ function App() {
           <Route path="/users">
             <UserList />
           </Route>
-          <Route path="/user/:userId">
+          <Route path="/user/:tin">
             <User />
           </Route>
           <Route path="/newUser">

@@ -8,8 +8,32 @@ import {
 } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import "./user.css";
+import axios from "axios"
+import { useParams } from "react-router";
+import { useEffect,useState } from "react";
 
 export default function User() {
+  const {tin} = useParams();
+  console.log(tin)
+  const [user, setUser] = useState({});
+  const fetchData = async ()=>{
+
+    const response = await axios.get(`http://localhost:4000/api/v1/clients/${tin}`);
+    if(response){
+      console.log(response);
+      return response;
+    }
+
+  }
+  useEffect(() => {
+
+    const populate = async() =>{
+      const response = await  fetchData();
+   setUser(response.data.payload);
+    }
+    populate();
+   console.log("data "+user);
+  }, [])
   return (
     <div className="user">
       <div className="userTitleContainer">
@@ -27,32 +51,32 @@ export default function User() {
               className="userShowImg"
             />
             <div className="userShowTopTitle">
-              <span className="userShowUsername">Anna Becker</span>
-              <span className="userShowUserTitle">Software Engineer</span>
+              <span className="userShowUsername">{`${user.FNAME} ${user.LNAME}`}</span>
+              <span className="userShowUserTitle">{user.PHONE}</span>
             </div>
           </div>
           <div className="userShowBottom">
-            <span className="userShowTitle">Account Details</span>
+            <span className="userShowTitle">Business Details</span>
             <div className="userShowInfo">
               <PermIdentity className="userShowIcon" />
-              <span className="userShowInfoTitle">annabeck99</span>
+              <span className="userShowInfoTitle">{user.TIN}</span>
             </div>
             <div className="userShowInfo">
               <CalendarToday className="userShowIcon" />
-              <span className="userShowInfoTitle">10.12.1999</span>
+              <span className="userShowInfoTitle">{user.BRANCHID}</span>
             </div>
             <span className="userShowTitle">Contact Details</span>
             <div className="userShowInfo">
               <PhoneAndroid className="userShowIcon" />
-              <span className="userShowInfoTitle">+1 123 456 67</span>
+              <span className="userShowInfoTitle">{user.INSURANCE}</span>
             </div>
             <div className="userShowInfo">
               <MailOutline className="userShowIcon" />
-              <span className="userShowInfoTitle">annabeck99@gmail.com</span>
+              <span className="userShowInfoTitle">{user.EMAIL}</span>
             </div>
             <div className="userShowInfo">
               <LocationSearching className="userShowIcon" />
-              <span className="userShowInfoTitle">New York | USA</span>
+              <span className="userShowInfoTitle">{user.WKPLACEADDRESS} | {user.ADDRESS}</span>
             </div>
           </div>
         </div>

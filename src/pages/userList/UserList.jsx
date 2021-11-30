@@ -26,7 +26,7 @@ export default function UserList() {
     }
     populate();
    console.log("data "+data);
-  }, [data])
+  }, [])
 
   const handleDelete = async(id) => {
     const res =  await axios.delete(`http://localhost:4000/api/v1/clients/${id}`);

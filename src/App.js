@@ -1,45 +1,22 @@
-import Sidebar from './components/sidebar/Sidebar';
-import Topbar from './components/topbar/Topbar';
+import { useContext } from 'react';
 import './App.css';
-import Home from './pages/home/Home';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import UserList from './pages/userList/UserList';
-import User from './pages/user/User';
-import NewUser from './pages/newUser/NewUser';
-import ProductList from './pages/productList/ProductList';
-import Product from './pages/product/Product';
-import NewProduct from './pages/newProduct/NewProduct';
+import 'antd/dist/antd.css';
+import { BrowserRouter as Router } from 'react-router-dom';
+import Layout from './components/Layout';
+import Login from './components/login/Login';
+import { AuthContext } from './context/AuthContext';
 
 function App() {
+  const { token } = useContext(AuthContext);
+
+  console.log(token);
+
+  if (!token) {
+    return <Login />;
+  }
   return (
     <Router>
-      <Topbar />
-      <div className="container">
-        <Sidebar />
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/users">
-            <UserList />
-          </Route>
-          <Route path="/user/:tin">
-            <User />
-          </Route>
-          <Route path="/newUser">
-            <NewUser />
-          </Route>
-          <Route path="/products">
-            <ProductList />
-          </Route>
-          <Route path="/product/:productId">
-            <Product />
-          </Route>
-          <Route path="/newproduct">
-            <NewProduct />
-          </Route>
-        </Switch>
-      </div>
+      <Layout />
     </Router>
   );
 }

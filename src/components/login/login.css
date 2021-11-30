@@ -1,0 +1,31 @@
+.page-container {
+  display: flex;
+  width: 100vw;
+  justify-content: space-between;
+}
+
+.logo-container {
+  width: 50%;
+  height: 100vh;
+  background-color: darkblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.tagline > h2,
+p {
+  color: white;
+  text-transform: uppercase;
+}
+
+.form-wrapper {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+.form-wrapper > form {
+  width: 50%;
+  margin-left: 10rem;
+}

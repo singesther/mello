@@ -4,10 +4,12 @@ import NewProduct from '../pages/newProduct/NewProduct';
 import NewUser from '../pages/newUser/NewUser';
 import Product from '../pages/product/Product';
 import ProductList from '../pages/productList/ProductList';
+import PharmacyList from '../pages/pharmacyList/pharmacyList';
 import User from '../pages/user/User';
 import UserList from '../pages/userList/UserList';
 import Sidebar from './sidebar/Sidebar';
 import Topbar from './topbar/Topbar';
+import Pharmacy from '../pages/pharmacyList/Pharmacy';
 
 const Layout = () => {
   return (
@@ -19,22 +21,28 @@ const Layout = () => {
           <Route exact path="/">
             <Home />
           </Route>
-          <Route path="/users">
+          <Route exact path="/users">
             <UserList />
           </Route>
-          <Route path="/user/:tin">
+          <Route exact path="/user/:tin">
             <User />
           </Route>
-          <Route path="/newUser">
+          <Route exact path="/newUser">
             <NewUser />
           </Route>
-          <Route path="/products">
+          <Route exact path="/products">
             <ProductList />
           </Route>
-          <Route path="/product/:productId">
+          <Route exact path="/pharmacies">
+            <PharmacyList />
+          </Route>
+          <Route exact path="/pharmacies/:id">
+            <Pharmacy />
+          </Route>
+          <Route exact path="/product/:productId">
             <Product />
           </Route>
-          <Route path="/newproduct">
+          <Route exact path="/newproduct">
             <NewProduct />
           </Route>
         </Switch>

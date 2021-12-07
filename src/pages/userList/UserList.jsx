@@ -1,17 +1,22 @@
 import "./userList.css";
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
-import { userRows } from "../../dummyData";
 import { Link } from "react-router-dom";
-import { useState,useEffect } from "react";
+import { useState,useEffect, useContext } from "react";
 import axios from "axios";
+import { AuthContext } from "../../context/AuthContext";
 
 export default function UserList() {
+  const {token} = useContext(AuthContext);
   const [data, setData] = useState([]);
 
   const fetchData = async ()=>{
 
-    const response = await axios.get('http://localhost:4000/api/v1/clients');
+    const response = await axios.get('http://localhost:4000/api/clients',{
+      headers:{
+        Authorization:`Bearer ${token}`
+      }
+    });
     if(response){
       return response;
     }

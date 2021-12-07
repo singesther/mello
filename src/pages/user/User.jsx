@@ -10,30 +10,25 @@ import { Link } from "react-router-dom";
 import "./user.css";
 import axios from "axios"
 import { useParams } from "react-router";
-import { useEffect,useState } from "react";
+import { useCallback, useEffect,useState } from "react";
 
 export default function User() {
   const {tin} = useParams();
   console.log(tin)
   const [user, setUser] = useState({});
-  const fetchData = async ()=>{
+  const fetchData =useCallback (async ()=>{
 
     const response = await axios.get(`http://localhost:4000/api/v1/clients/${tin}`);
     if(response){
       console.log(response);
-      return response;
+      setUser(response.data.payload);
     }
 
-  }
+  },[tin])
   useEffect(() => {
-
-    const populate = async() =>{
-      const response = await  fetchData();
-   setUser(response.data.payload);
-    }
-    populate();
+     fetchData();
    console.log("data "+user);
-  }, [])
+  },[fetchData])
   return (
     <div className="user">
       <div className="userTitleContainer">

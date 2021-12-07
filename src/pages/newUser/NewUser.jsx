@@ -37,7 +37,7 @@ export default function NewUser() {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:4000/api/v1/clients/register",form);
+      const response = await axios.post("http://meloline-be.herokuapp.com/api/v1/clients/register",form);
       if(response){
         console.log(response);
         history.push('/users');

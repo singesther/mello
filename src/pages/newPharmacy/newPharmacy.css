@@ -1,0 +1,16 @@
+.form-wrapper {
+  display: flex;
+  width: 50%;
+  background-color: brown;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+.form-wrapper > form {
+  width: 50%;
+  margin-left: 10rem;
+}
+
+.form {
+  display: flex;
+}

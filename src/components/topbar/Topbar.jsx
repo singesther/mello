@@ -7,6 +7,7 @@ export default function Topbar() {
   const handleClick = (e)=>{
     e.preventDefault();
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
     window.location.reload();
   }
   return (

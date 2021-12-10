@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import { Popconfirm, Space,Table,message, Button } from "antd";
-import { useHistory } from "react-router";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
@@ -11,7 +10,7 @@ export default function ProductList() {
 
   const fetchData = async ()=>{
     try {
-        const response = await axios.get('http://localhost:4000/api/pharmacies',{
+        const response = await axios.get('http://localhost:4000/api/items',{
           headers:{
             accept: 'application/json',
             Authorization:`Bearer ${token}`
@@ -35,10 +34,10 @@ export default function ProductList() {
   const confirm = async (id)=> {
      console.log(id);
      try {
-      const response = await axios.delete(`http://localhost:4000/api/pharmacies/${id}`);
+      const response = await axios.delete(`http://localhost:4000/api/items/${id}`);
       if(response){
         console.log(response);
-        message.success('pharmacy deleted successfully');
+        message.success('item deleted successfully');
       }
     } catch (error) {
        console.log(error);
@@ -52,65 +51,65 @@ export default function ProductList() {
   }
   const columns = [
     {
+        title: 'Id',
+        dataIndex: 'ID',
+        key: 'id',
+      },
+      {
         title: 'Name',
         dataIndex: 'NAME',
         key: 'name',
-      },
-      {
-        title: 'Location',
-        dataIndex: 'LOCATION',
-        key: 'location',
       }, {
-        title: 'Email',
-        dataIndex: 'EMAIL',
-        key: 'email',
+        title: 'Info',
+        dataIndex: 'ADDINFO',
+        key: 'info',
       }, {
-        title: 'About',
-        dataIndex: 'ABOUT',
+        title: 'organisation code',
+        dataIndex: 'ORGNATIONCODE',
         key: 'about',
-      }, {
-        title: 'TIN',
-        dataIndex: 'TINNUMBER',
-        key: 'tin',
-      },
-      {
-        title: 'Manager',
-        dataIndex: 'MANAGRNAME',
-        key: 'manager',
-      },
-      {
-        title: 'Manager Phone',
-        dataIndex: 'MANAGRPHONE',
-        key: 'managerPhone',
-      },
-      {
-        title: 'Branch Reg Date',
-        dataIndex: 'BRANCHREGISTRATIONDATE',
-        key: 'breanchRegDate',
-      },
-      {
-        title: 'Head quarter',
-        dataIndex: 'HEADQUATER',
-        key: 'headquarter',
-      },
-      {
-        title: 'date',
-        dataIndex: 'REGDATE',
-        key: 'date',
-      },
-      {
-        title: 'office name',
-        dataIndex: 'BRANCHOFFICENAME',
-        key: 'office',
-      },
+       }, // {
+    //     title: 'TIN',
+    //     dataIndex: 'TINNUMBER',
+    //     key: 'tin',
+    //   },
+    //   {
+    //     title: 'Manager',
+    //     dataIndex: 'MANAGRNAME',
+    //     key: 'manager',
+    //   },
+    //   {
+    //     title: 'Manager Phone',
+    //     dataIndex: 'MANAGRPHONE',
+    //     key: 'managerPhone',
+    //   },
+    //   {
+    //     title: 'Branch Reg Date',
+    //     dataIndex: 'BRANCHREGISTRATIONDATE',
+    //     key: 'breanchRegDate',
+    //   },
+    //   {
+    //     title: 'Head quarter',
+    //     dataIndex: 'HEADQUATER',
+    //     key: 'headquarter',
+    //   },
+    //   {
+    //     title: 'date',
+    //     dataIndex: 'REGDATE',
+    //     key: 'date',
+    //   },
+    //   {
+    //     title: 'office name',
+    //     dataIndex: 'BRANCHOFFICENAME',
+    //     key: 'office',
+    //   },
       {
         title: 'Action',
         key: 'action',
         render: (text, record) => (
           <Space size="middle">
-            <Link to={`/pharmacies/${record.ID}`}><h4>Update</h4></Link>
+            <Link to={`/items/${record.ID}`}><h4>Update</h4></Link>
             <Popconfirm
-             title="Are you sure to delete this task?"
+             title="Are you sure to delete this item?"
              onConfirm={()=>confirm(record.ID)}
              onCancel={cancel}
              okText="Yes"

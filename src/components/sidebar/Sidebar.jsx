@@ -12,6 +12,7 @@ import {
   ChatBubbleOutline,
   WorkOutline,
   Report,
+  Shop,
 } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 
@@ -47,10 +48,10 @@ export default function Sidebar() {
                 Users
               </li>
             </Link>
-            <Link to="/products" className="link">
+            <Link to="/items" className="link">
               <li className="sidebarListItem">
-                <Storefront className="sidebarIcon" />
-                Products
+                <Shop className="sidebarIcon" />
+                Items
               </li>
             </Link>
             <Link to="/pharmacies" className="link">

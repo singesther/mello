@@ -1,110 +1,64 @@
-import "./sidebar.css";
 import {
-  LineStyle,
-  Timeline,
-  TrendingUp,
-  PermIdentity,
-  Storefront,
-  AttachMoney,
-  BarChart,
-  MailOutline,
-  DynamicFeed,
-  ChatBubbleOutline,
-  WorkOutline,
-  Report,
-  Shop,
-} from "@material-ui/icons";
+  TeamOutlined,
+  HomeOutlined,
+  DollarCircleOutlined,
+  FileOutlined,
+  DesktopOutlined,
+  UserOutlined,
+  UploadOutlined,
+  VideoCameraOutlined,
+} from '@ant-design/icons';
+
+import { Layout,Menu } from "antd";
+import { useState } from 'react';
 import { Link } from "react-router-dom";
 
+
+
 export default function Sidebar() {
+  const [collapsed,setCollapsed] = useState(false);
+    const  onCollapse = () => {
+        console.log(collapsed);
+        setCollapsed(!collapsed);
+      };
+      const {  Sider } = Layout;
+const {SubMenu} = Menu
   return (
-    <div className="sidebar">
-      <div className="sidebarWrapper">
-        <div className="sidebarMenu">
-          <h3 className="sidebarTitle">Dashboard</h3>
-          <ul className="sidebarList">
-            <Link to="/" className="link">
-            <li className="sidebarListItem active">
-              <LineStyle className="sidebarIcon" />
-              Home
-            </li>
-            </Link>
-            <li className="sidebarListItem">
-              <Timeline className="sidebarIcon" />
-              Analytics
-            </li>
-            <li className="sidebarListItem">
-              <TrendingUp className="sidebarIcon" />
-              Sales
-            </li>
-          </ul>
+    <div>
+      {/* <Sider>
+        <div className>
+          <h1>Meloline</h1>
         </div>
-        <div className="sidebarMenu">
-          <h3 className="sidebarTitle">Quick Menu</h3>
-          <ul className="sidebarList">
-            <Link to="/users" className="link">
-              <li className="sidebarListItem">
-                <PermIdentity className="sidebarIcon" />
-                Users
-              </li>
-            </Link>
-            <Link to="/items" className="link">
-              <li className="sidebarListItem">
-                <Shop className="sidebarIcon" />
-                Items
-              </li>
-            </Link>
-            <Link to="/pharmacies" className="link">
-              <li className="sidebarListItem">
-                <Storefront className="sidebarIcon" />
-                Pharmacies
-              </li>
-            </Link>
-            <li className="sidebarListItem">
-              <AttachMoney className="sidebarIcon" />
-              Transactions
-            </li>
-            <li className="sidebarListItem">
-              <BarChart className="sidebarIcon" />
-              Reports
-            </li>
-          </ul>
-        </div>
-        <div className="sidebarMenu">
-          <h3 className="sidebarTitle">Notifications</h3>
-          <ul className="sidebarList">
-            <li className="sidebarListItem">
-              <MailOutline className="sidebarIcon" />
-              Mail
-            </li>
-            <li className="sidebarListItem">
-              <DynamicFeed className="sidebarIcon" />
-              Feedback
-            </li>
-            <li className="sidebarListItem">
-              <ChatBubbleOutline className="sidebarIcon" />
-              Messages
-            </li>
-          </ul>
-        </div>
-        <div className="sidebarMenu">
-          <h3 className="sidebarTitle">Staff</h3>
-          <ul className="sidebarList">
-            <li className="sidebarListItem">
-              <WorkOutline className="sidebarIcon" />
-              Manage
-            </li>
-            <li className="sidebarListItem">
-              <Timeline className="sidebarIcon" />
-              Analytics
-            </li>
-            <li className="sidebarListItem">
-              <Report className="sidebarIcon" />
-              Reports
-            </li>
-          </ul>
-        </div>
-      </div>
+        
+      </Sider> */}
+       <Sider style={{minHeight:'100vh',height:'100%'}} collapsible collapsed={collapsed} onCollapse={onCollapse}>
+        <div className="logo" />
+        <Menu theme="dark" style={{marginTop:'100px'}} mode="inline" defaultSelectedKeys={['1']}>
+        <Menu.Item key="1" icon={<HomeOutlined />}>
+          <Link to="/">Home</Link>
+        </Menu.Item>
+        <Menu.Item key="2" icon={<VideoCameraOutlined />}>
+          Analytics
+        </Menu.Item>
+        <Menu.Item key="3" icon={<UploadOutlined />}>
+          Sales
+        </Menu.Item>
+        <SubMenu key="sub1" icon={<TeamOutlined />} title="Users">
+              <Menu.Item key="4"><Link to="/users">Users</Link></Menu.Item>
+              <Menu.Item key="5"><Link to="/users/new">new User</Link></Menu.Item>
+         </SubMenu>
+         <SubMenu key="sub2" icon={<TeamOutlined />} title="Items">
+            <Menu.Item key="6"> <Link to="/items">Items</Link></Menu.Item>
+             <Menu.Item key="7"> <Link to="/items/new">new Item</Link></Menu.Item>
+         </SubMenu>
+         <SubMenu key="sub3" icon={<TeamOutlined />} title="Pharmacies">
+              <Menu.Item key="8"><Link to="/pharmacies">Pharmacies</Link></Menu.Item>
+              <Menu.Item key="9"><Link to='/pharmacies/new'>new Pharmacy</Link></Menu.Item>
+         </SubMenu>
+        
+      </Menu>
+
+      </Sider>
     </div>
   );
 }

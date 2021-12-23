@@ -1,4 +1,4 @@
-import { Input, Form, Button,message } from 'antd';
+import { Input, Form, Button,message, Typography } from 'antd';
 import axios from 'axios';
 import { useHistory } from 'react-router';
 
@@ -24,13 +24,15 @@ const NewItem = () => {
       };
     return (
         <div className="newProduct">
-            <h1 className="addProductTitle">New Pharmacy</h1>
+          <Typography.Title style={{textAlign:'center'}} level={2}>Add new Item</Typography.Title>
             <Form
-      labelCol={{
-        span: 4,
-      }}
-      wrapperCol={{
-        span: 14,
+       style={{
+        width:'80%',
+        margin:'50px auto',
+        display:'grid',
+        gridTemplateColumns:'repeat(3,1fr)',
+        gridRowGap:'10px',
+        gridColumnGap:'2rem'
       }}
       layout="horizontal"
       initialValues={{}}
@@ -108,10 +110,7 @@ const NewItem = () => {
       <Form.Item label="USEDORUNUSED" name="USEDORUNUSED">
         <Input />
       </Form.Item>
-      <Form.Item label="Manager Phone" name="MANAGRPHONE">
-        <Input />
-      </Form.Item>
-      <Form.Item label="Manager Email" name="MANAGREMAIL">
+      <Form.Item label="LASTREQDATE" name="LASTREQDATE">
         <Input />
       </Form.Item>
       <Form.Item label="SYNCED" name="SYNCED">

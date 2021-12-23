@@ -123,7 +123,7 @@ export default function ProductList() {
   ];
 
   return (
-    <div className="productList">
+    <div className="">
       {data && <Table columns={columns} dataSource={data} />}
       {!data && <h2>Loading ...</h2>}
     </div>

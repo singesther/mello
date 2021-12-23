@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import { Popconfirm, Space,Table,message, Button } from "antd";
-import { useHistory } from "react-router";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
@@ -54,7 +53,9 @@ export default function ProductList() {
     {
         title: 'Name',
         dataIndex: 'NAME',
+        width:100,
         key: 'name',
+        fixed:'left'
       },
       {
         title: 'Location',
@@ -106,6 +107,8 @@ export default function ProductList() {
       {
         title: 'Action',
         key: 'action',
+        width:200,
+        fixed:'right',
         render: (text, record) => (
           <Space size="middle">
             <Link to={`/pharmacies/${record.ID}`}><h4>Update</h4></Link>
@@ -124,8 +127,8 @@ export default function ProductList() {
   ];
 
   return (
-    <div className="productList">
-      {data && <Table columns={columns} dataSource={data} />}
+    <div className="">
+      {data && <Table columns={columns} scroll={{ x: 1300 }}  dataSource={data} />}
       {!data && <h2>Loading ...</h2>}
     </div>
   );

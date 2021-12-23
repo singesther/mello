@@ -10,7 +10,7 @@ const ResetPassword =  () => {
     const { user } = useContext(AuthContext);
 
   let currentUser = JSON.parse(user);
-  console.log(currentUser.TIN);
+ // console.log(currentUser.TIN);
 
     const onFinish = async  (values) => {
         console.log('Success:', values.password);

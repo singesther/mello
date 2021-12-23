@@ -1,4 +1,5 @@
-import { Input, Form, Button,message } from 'antd';
+import { Input, Form, Button,message,Upload, DatePicker, Typography } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import { useHistory } from 'react-router';
 import './newPharmacy.css';
@@ -23,17 +24,38 @@ const NewPharmacy = () => {
       const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
       };
+      const props = {
+        name: 'file',
+        action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+        headers: {
+          authorization: 'authorization-text',
+        },
+        onChange(info) {
+          if (info.file.status !== 'uploading') {
+            console.log(info.file, info.fileList);
+          }
+          if (info.file.status === 'done') {
+            message.success(`${info.file.name} file uploaded successfully`);
+          } else if (info.file.status === 'error') {
+            message.error(`${info.file.name} file upload failed.`);
+          }
+        },
+      };
     return (
+      
         <div className="newProduct">
-            <h1 className="addProductTitle">New Pharmacy</h1>
+             <Typography.Title style={{textAlign:'center'}} level={2}>Add new Pharmacy</Typography.Title>
             <Form
-      labelCol={{
-        span: 4,
-      }}
-      wrapperCol={{
-        span: 14,
-      }}
-      layout="horizontal"
+            className="form"
+            style={{
+              width:'80%',
+              margin:'50px auto',
+              display:'grid',
+              gridTemplateColumns:'repeat(3,1fr)',
+              gridRowGap:'10px',
+              gridColumnGap:'2rem'
+            }}
+      layout="vertical"
       initialValues={{}}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
@@ -59,10 +81,12 @@ const NewPharmacy = () => {
         <Input />
       </Form.Item>
       <Form.Item label="Logo" name="LOGO">
-        <Input />
+       <Upload {...props}>
+        <Button icon={<UploadOutlined />}>Click to Upload</Button>
+       </Upload>
       </Form.Item>
       <Form.Item label="Registration Date" name="REGDATE">
-        <Input />
+        <DatePicker  style={{width:'100%'}} />
       </Form.Item>
       <Form.Item label="Active" name="ACTIVE">
         <Input />
@@ -123,7 +147,7 @@ const NewPharmacy = () => {
       </Form.Item>
       
       <Form.Item>
-        <Button type="primary" htmlType="submit">Button</Button>
+        <Button block type="primary" htmlType="submit">Button</Button>
       </Form.Item>
     </Form>
         </div>

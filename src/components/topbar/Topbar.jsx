@@ -2,7 +2,10 @@ import React from "react";
 import "./topbar.css";
 import {Button} from 'antd';
 import { NotificationsNone, Language, Settings } from "@material-ui/icons";
+import { Layout } from "antd";
 
+
+const {Header} = Layout;
 export default function Topbar() {
   const handleClick = (e)=>{
     e.preventDefault();
@@ -11,6 +14,7 @@ export default function Topbar() {
     window.location.reload();
   }
   return (
+    <Header style={{background:'white'}}>
     <div className="topbar">
       <div className="topbarWrapper">
         <div className="topLeft">
@@ -33,5 +37,6 @@ export default function Topbar() {
         </div>
       </div>
     </div>
+    </Header>
   );
 }

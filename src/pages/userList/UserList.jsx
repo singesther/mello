@@ -1,10 +1,9 @@
 import "./userList.css";
-import { DataGrid } from "@material-ui/data-grid";
-import { DeleteOutline } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import { useState,useEffect, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../../context/AuthContext";
+import { Button, message, Popconfirm, Space, Table } from "antd";
 
 export default function UserList() {
   const {token} = useContext(AuthContext);
@@ -12,11 +11,7 @@ export default function UserList() {
 
   const fetchData = async ()=>{
 
-    const response = await axios.get('http://localhost:4000/api/clients',{
-      headers:{
-        Authorization:`Bearer ${token}`
-      }
-    });
+    const response = await axios.get('http://localhost:4000/api/clients');
     if(response){
       return response;
     }
@@ -33,6 +28,16 @@ export default function UserList() {
    console.log("data "+data);
   }, [])
 
+
+  const confirm = (id) =>{
+    handleDelete(id);
+  }
+
+  function cancel(e) {
+    console.log(e);
+    message.error('Click on No');
+  }
+
   const handleDelete = async(id) => {
     const res =  await axios.delete(`http://localhost:4000/api/v1/clients/${id}`);
     console.log(res);
@@ -40,60 +45,56 @@ export default function UserList() {
   };
   
   const columns = [
-    { field: "ID", headerName: "ID", width: 90 },
+    { title: "ID", dataIndex: "ID", key: "id",width:80,fixed:'left' },
     {
-      field: "TIN",
-      headerName: "TIN",
+      title: "TIN",
+      dataIndex: "TIN",
       width: 90,
     },
-    { field: "FNAME", headerName: "FNAME", width: 90 },
-    { field: "LNAME",headerName: "LNAME", width: 90 },
-    {field: "GENDER",headerName: "Gender", width: 100},
-    {field: "DOB",headerName: "DOB", width: 100},
-    {field: "INSURANCE",headerName: "INSURANCE", width: 100},
-    {field: "TM",headerName: "TM", width: 50},
-    {field: "TINBR",headerName: "TINBR", width: 90},
-    {field: "PHONE",headerName: "PHONE", width: 90},
-    {field: "EMAIL",headerName: "EMAIL", width: 100},
-    {field: "ADDRESS",headerName: "ADDRESS", width: 160},
-    {field: "STATUS",headerName: "STATUS", width: 90},
-    {field: "CATEGORY",headerName: "CATEGORY", width: 100},
-    {field: "RELATION",headerName: "RELATION", width: 100},
-    {field: "BENEFICIARY",headerName: "BENEFICIARY", width: 100},
-    {field: "WKDEPARTMENT",headerName: "WKDEPARTMENT", width: 100},
-    {field: "WKPLACEADDRESS",headerName: "WKPLACEADDRESS", width: 100},
-    {field: "LASTREQUDTE",headerName: "LASTREQUDTE", width: 100},
+    { title: "FNAME", dataIndex: "FNAME",key: "fname", width: 90, },
+    { title: "LNAME",dataIndex: "LNAME",key: "lname", width: 90, },
+    {title: "GENDER",dataIndex: "GENDER",key: "gender", width: 90,},
+    {title: "DOB",dataIndex: "DOB",key: "dob", width: 100,},
+    {title: "INSURANCE",dataIndex: "INSURANCE",key: "insurance", width: 90,},
+    {title: "TM",dataIndex: "TM",key: "tm", width: 90,},
+    {title: "TINBR",dataIndex: "TINBR",key: "tinbr", width: 90,},
+    {title: "PHONE",dataIndex: "PHONE",key: "phone", width: 90,},
+    {title: "EMAIL",dataIndex: "EMAIL",key: "email", width: 90,},
+    {title: "ADDRESS",dataIndex: "ADDRESS",key: "address", width: 90,},
+    {title: "STATUS",dataIndex: "STATUS",key: "status", width: 90,},
+    {title: "CATEGORY",dataIndex: "CATEGORY",key: "category", width: 90,},
+    {title: "RELATION",dataIndex: "RELATION",key: "relation", width: 90,},
+    {title: "BENEFICIARY",dataIndex: "BENEFICIARY",key: "beneficiary", width: 90,},
+    {title: "WKDEPARTMENT",dataIndex: "WKDEPARTMENT",key: "wkdept", width: 90,},
+    {title: "WKPLACEADDRESS",dataIndex: "WKPLACEADDRESS",key: "wkplace", width: 90,},
+    {title: "LASTREQUDTE",dataIndex: "LASTREQUDTE",key: "lastquote", width: 90,},
     {
-      field: "action",
-      headerName: "Action",
-      width: 150,
-      renderCell: (params) => {
-        return (
-          <>
-            <Link to={"/user/" + params.row.TIN}>
-              <button className="userListEdit">Edit</button>
-            </Link>
-            <DeleteOutline
-              className="userListDelete"
-              onClick={() => handleDelete(params.row.ID)}
-            />
-          </>
-        );
-      },
+      title: "action",
+     key: "action",
+     width:150,
+     fixed:'right',
+      render: (record) => (
+      
+        <Space size="middle">
+           <Link to={`/user/${record.TIN}`}><h4>Update</h4></Link>
+            <Popconfirm
+             title="Are you sure to delete this task?"
+             onConfirm={()=>confirm(record.ID)}
+             onCancel={cancel}
+             okText="Yes"
+             cancelText="No"
+            >
+              <Button type="ghost">Delete</Button>
+            </Popconfirm>
+          </Space>
+      ),
     },
   ];
 
   return (
     <div className="userList">
      {
-       data.length > 0 && <DataGrid
-       rows={data}
-       getRowId={(row)=>row.ID}
-       disableSelectionOnClick
-       columns={columns}
-       pageSize={8}
-       checkboxSelection
-     />
+       data.length > 0 && <Table columns={columns} scroll={{ x: 1300 }} dataSource={data}  />
      } 
      {data.length ===0  && <h2>Loading</h2>}
     </div>
